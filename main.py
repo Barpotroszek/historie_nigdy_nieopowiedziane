@@ -1,10 +1,12 @@
 import flask, os
-import write_json as json_file
+from write_json import json_files
 import datetime
 
 app = flask.Flask(__name__, static_folder='static')
 #static folder -> style.css
 #templates -> html files
+
+json_file = json_files()
 
 @app.route('/', methods=['GET'])
 def index():   

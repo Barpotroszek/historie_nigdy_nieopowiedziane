@@ -128,5 +128,5 @@ class json_files:
         return source
 
 with open('templates/output_index.html', 'w', encoding='utf-8') as f:
-    string = json_files().change_source('05-04-2021')
+    string = json_files().change_source('05-04-2021', 0)
     f.write(string)
