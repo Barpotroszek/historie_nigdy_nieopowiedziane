@@ -14,7 +14,7 @@ class templates:
         return False #jeśli nie ma takiej
 
     def add_post(self, title,content):
-        '''Dodaje post do pliku json'''
+        '''Dodaje post do pliku json i zwraca w tupli link z tytułem wpisu'''
         with open(file_name, 'r+', encoding='utf-8') as f:
             data = json.loads(f.read())
             posts = data['posts']
@@ -41,12 +41,12 @@ class templates:
             #ensure_ascii -> kodowanie znaków do utf-8
             #indent -> ilość spacji przy wcięciach
             json.dump(data, f, ensure_ascii=False, indent=4)
-            f.close()    
-            counter = 0 
-            for a in posts:
-                counter += len(posts[a])
-            return counter
-
+            f.close()   
+            
+            
+            amount = len(today_posts)
+            link = "{}/{}".format(today, amount-1)
+            return link
 
     def send_to_wordpress(self, title, content):
         '''zapisuje tekst do dict wordpress'''
@@ -72,22 +72,20 @@ class templates:
             #przejdź na sam początek i wyczyść plik
             f.seek(0) 
             f.truncate()
+
             #ensure_ascii -> kodowanie znaków do utf-8
             #indent -> ilość spacji przy wcięciach
             json.dump(data, f, ensure_ascii=False, indent=4)
             f.close()    
 
-            #do policzenia postów
-            counter = 0 
-            for a in posts:
-                counter += len(posts[a])
-            return counter
+            amount = len(today_posts)
+            path = "{}/{}".format(today, amount-1)
+            return path
 
     def give_dict(self):
         with open(file_name, 'r', encoding='utf-8') as f:
             return json.loads(f.read())
 
-    
     def change_source(self, date=None, idx = None):
         '''Tworzy listę z odnośnikami lub stronę z historią'''
         with open(file_name, 'r', encoding='utf-8') as js:
@@ -101,16 +99,17 @@ class templates:
             title = 'Wszystkie możliwe dni do wyboru'
             content = []
 
+            with open('templates/hrefs_template.html', 'r', encoding='utf-8') as f:
+                source = f.read()
+                f.close()
+
             for a in reversed(hrefs):
                 line = f'<li><a class="link" href="{a}">{a}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
             
-            with open('templates/hrefs_template.html', 'r', encoding='utf-8') as f:
-                source = f.read()
-                for a,b in translate.items():
-                    source = source.replace(a,b)
-                f.close()
+            for a,b in translate.items():
+                source = source.replace(a,b)
 
             return source
 
@@ -169,4 +168,19 @@ class templates:
         with open('templates/output_index.html', 'w', encoding='utf-8') as f:
             string = self.change_source(date, idx)
             f.write(string)
+            f.close()
+
+    def post_template(self, title, content):
+        with open('templates/post.html', 'r', encoding='utf-8') as html:
+            source = html.read()
+            html.close()
+            link = self.add_post(title, content)
+
+        translate = {'^title^' : str(title), "^link^":link}
+            
+        for a,b in translate.items():
+            source = source.replace(a,b)
+    
+        with open('templates/output_index.html', "w", encoding="utf-8") as f:
+            f.write(source)
             f.close()
