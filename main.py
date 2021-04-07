@@ -28,18 +28,18 @@ def index_post():
         amount = html.send_to_wordpress(title, content)
         return flask.redirect(flask.url_for('post_wordpress', amount=amount))
     
-    html.add_post(title, content)       
+    html.post_template(title, content)       
     return flask.redirect(flask.url_for('post_normal'))
     
 
 @app.route('/thanks/<amount>')
 def post_wordpress(amount):
-    return flask.render_template('post_wordpress.html', dane=amount)
+    return flask.render_template('output_index.html', dane=amount)
 
 
 @app.route('/thanks')
 def post_normal():
-    return flask.render_template('post.html')
+    return flask.render_template('output_index.html')
 
 @app.route('/stories/json')
 def stories_json():
