@@ -100,7 +100,7 @@ class templates:
             hrefs = [a for a in posts]
             title = 'Wszystkie możliwe dni do wyboru'
             content = []
-            
+
             for a in reversed(hrefs):
                 print(a)
                 line = f'<li><a class="link" href="{a}">{a}</a></li>'
@@ -120,11 +120,27 @@ class templates:
         posts = data['posts'][date]
 
         if idx is None:
-            hrefs = [a['title'] for a in posts]
+            
+            titles = []
+            hrefs = []
+
+            #w razie gdyby się powtarzały dodaje im numerek, np '#2'
+            for a in posts:
+                title = a['title']
+                if title in titles:
+                    title += f' #{titles.count(title)+1}'
+                hrefs.append(title)
+                titles.append(title)
+                print(title)
+
             title = date
             content = []
+            
+            #numeruje linki i łączy je w tuple
+            to_reverse = [(a,b) for a,b in enumerate(hrefs)] 
 
-            for a, b in enumerate(hrefs):
+            #tworzy linki segregując je od najstarszych do najnowszych 
+            for a, b in reversed(to_reverse):
                 line = f'<li><a class="link" href="{a}">{b}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
@@ -157,4 +173,4 @@ class templates:
             f.write(string)
             f.close()
 
-print(templates().change_source())
+print(templates().create_template('06-04-2021'))
