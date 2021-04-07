@@ -49,29 +49,22 @@ input {
     border-color: rgb(0, 102, 128);
 }
 
+
+.data-out {
+    margin: 2%;   
+}
+
 #story-title{
     color: rgb(0, 217, 255);
     font-size: 27px;
     font-style: italic;
 }
 
-#story-content {
-    text-align: justify;
-    margin: 1%;
-    font-family: Arial;
-    font-size: 17px;
-    width: 90%;
-    height: 50%;
-    border: 3.5px;
-    border-color: teal;
-    border-radius: 5px;
-}
-
 #story-area {
     text-align: justify;
     margin: 1%;
     font-family: Arial;
-    font-size: 17px;
+    font-size: 15px;
     width: 90%;
     height: 60%;
     border: 3.5px;
@@ -79,6 +72,26 @@ input {
     border-radius: 5px;
 }
 
+#story-content {
+    text-align: justify;
+    font-size: 15px;
+    margin: 0.5%;
+    margin-top: 2%;
+    font-family: Arial;
+}
+
+#story-links {
+    font-size: 19px;
+}
+
+ul{
+    margin-top: 2%;
+    padding: 2%;
+}
+
+li{ 
+    padding: 0.5%;
+}
 
 .buttons {
     float: right;
@@ -93,20 +106,11 @@ input {
 }
 
 
-.data-out {
-    font-size: 22px;
-    margin: 2%;   
-}
-
-li{ 
-    padding: 0.5%;
-}
-
 a {
     color: white;
     text-decoration: none;
 }
 
 a:hover {
-    color: teal;
+    color: rgb(5, 151, 151);
 }
