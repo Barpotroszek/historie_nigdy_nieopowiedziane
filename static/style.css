@@ -23,6 +23,15 @@ label {
     font-size: 17px;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #059797;
+}
+
 input {
     margin-left: 5px;
     padding: 5px;
@@ -54,10 +63,14 @@ input {
     margin: 2%;   
 }
 
-#story-title{
-    color: rgb(0, 217, 255);
+#story-title, #title-href{
+    color: #00d9ff;
     font-size: 27px;
     font-style: italic;
+}
+
+#title-href:hover{
+   color: #006680;
 }
 
 #story-area {
@@ -73,7 +86,7 @@ input {
 
 #story-content {
     text-align: justify;
-    font-size: 15px;
+    font-size: 16px;
     margin: 0.5%;
     margin-top: 2%;
     font-family: Arial;
@@ -102,14 +115,4 @@ li{
     font-style: italic;
     margin-top: 1.5%;
     margin-right: 2%;
-}
-
-
-a {
-    color: white;
-    text-decoration: none;
-}
-
-a:hover {
-    color: rgb(5, 151, 151);
 }
