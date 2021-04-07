@@ -102,7 +102,6 @@ class templates:
             content = []
 
             for a in reversed(hrefs):
-                print(a)
                 line = f'<li><a class="link" href="{a}">{a}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
@@ -131,7 +130,6 @@ class templates:
                     title += f' #{titles.count(title)+1}'
                 hrefs.append(title)
                 titles.append(title)
-                print(title)
 
             title = date
             content = []
@@ -141,7 +139,7 @@ class templates:
 
             #tworzy linki segregując je od najstarszych do najnowszych 
             for a, b in reversed(to_reverse):
-                line = f'<li><a class="link" href="{a}">{b}</a></li>'
+                line = f'<li><a class="story-link" href="{a}">{b}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
             
@@ -157,7 +155,7 @@ class templates:
         post = posts[idx]
         title = post['title']
         content = post['content']
-        translate = {'^title^' : str(title), "^content^":content}
+        translate = {'^title^' : str(title), "^content^":content, "\r\n":'<br>'}
 
         with open('templates/clear_template.html', 'r', encoding='utf-8') as html:
             source = str(html.read())
@@ -172,5 +170,3 @@ class templates:
             string = self.change_source(date, idx)
             f.write(string)
             f.close()
-
-print(templates().create_template('06-04-2021'))
