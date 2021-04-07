@@ -2,15 +2,19 @@ import flask, os
 from write_json import templates
 import datetime
 
-app = flask.Flask(__name__, static_folder='static')
+app = flask.Flask(__name__, static_url_path='')
 #static folder -> style.css
 #templates -> html files
-
 html = templates()
 
 @app.route('/', methods=['GET'])
 def index():   
     return flask.render_template('index.html')
+
+@app.route('/uploads/<path:filename>')
+def download_files(filename):
+    print('file', filename)
+    return  flask.send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 @app.route('/', methods=['POST'])
