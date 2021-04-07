@@ -97,11 +97,11 @@ class templates:
         #Tworzy listę hiperłączy z historiami podzielonymi według dnia
         posts = data['posts'] 
         if date is None:
-            hrefs = [a for a in posts.reverse()]
+            hrefs = [a for a in posts]
             title = 'Wszystkie możliwe dni do wyboru'
             content = []
 
-            for a in hrefs:
+            for a in hrefs.reverse():
                 line = f'<li><a class="link" href="{a}">{a}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
