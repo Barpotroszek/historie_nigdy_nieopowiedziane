@@ -4,7 +4,7 @@ file_name = 'templates/data.json'
 
 var = {}
 
-class json_files:
+class templates:
     def searcher(self, lista: list, look_for):
         '''Sprwdza, czy jest zmienna przeznaczona na ten dzień'''
         for a in lista:  #przeszukaj liste postów
@@ -88,20 +88,21 @@ class json_files:
             return json.loads(f.read())
 
     
-    def change_source(self, date, idx = None):
+    def change_source(self, date=None, idx = None):
         '''Tworzy listę z odnośnikami lub stronę z historią'''
         with open(file_name, 'r', encoding='utf-8') as js:
             data = json.loads(js.read())
             js.close()
 
-        posts = data['posts'][date]
-        if idx is None:
-            hrefs = [a['title'] for a in posts]
-            title = date
+        #Tworzy listę hiperłączy z historiami podzielonymi według dnia
+        posts = data['posts'] 
+        if date is None:
+            hrefs = [a for a in posts.reverse()]
+            title = 'Wszystkie możliwe dni do wyboru'
             content = []
 
-            for a, b in enumerate(hrefs):
-                line = f'<li><a href="./{a}">{b}</a></li>'
+            for a in hrefs:
+                line = f'<li><a class="link" href="{a}">{a}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
             
@@ -114,6 +115,28 @@ class json_files:
             return source
 
 
+        #Zwraca wszystkie wpisy ze wskazanego dnia
+        posts = data['posts'][date]
+
+        if idx is None:
+            hrefs = [a['title'] for a in posts]
+            title = date
+            content = []
+
+            for a, b in enumerate(hrefs):
+                line = f'<li><a class="link" href="{a}">{b}</a></li>'
+                content.append(line)
+            translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
+            
+            with open('templates/hrefs_template.html', 'r', encoding='utf-8') as f:
+                source = f.read()
+                for a,b in translate.items():
+                    source = source.replace(a,b)
+                f.close()
+
+            return source
+
+        #zwraca wskazany post
         post = posts[idx]
         title = post['title']
         content = post['content']
@@ -127,6 +150,8 @@ class json_files:
 
         return source
 
-with open('templates/output_index.html', 'w', encoding='utf-8') as f:
-    string = json_files().change_source('05-04-2021', 0)
-    f.write(string)
+    def create_template(self, date=None, idx=None):
+        with open('templates/output_index.html', 'w', encoding='utf-8') as f:
+            string = self.change_source(date, idx)
+            f.write(string)
+            f.close()

@@ -1,12 +1,12 @@
 import flask, os
-from write_json import json_files
+from write_json import templates
 import datetime
 
 app = flask.Flask(__name__, static_folder='static')
 #static folder -> style.css
 #templates -> html files
 
-json_file = json_files()
+html = templates()
 
 @app.route('/', methods=['GET'])
 def index():   
@@ -21,10 +21,10 @@ def index_post():
 
     if '#word' in str(title):
         title = title[6:]
-        amount = json_file.send_to_wordpress(title, content)
+        amount = html.send_to_wordpress(title, content)
         return flask.redirect(flask.url_for('post_wordpress', amount=amount))
     
-    json_file.add_post(title, content)       
+    html.add_post(title, content)       
     return flask.redirect(flask.url_for('post_normal'))
     
 
@@ -39,7 +39,27 @@ def post_normal():
 
 @app.route('/stories/json')
 def stories_json():
-    file_string = json_file.give_dict()
+    file_string = html.give_dict()
     return flask.jsonify(file_string)
+
+@app.route('/stories')
+def stories_slash():
+    return flask.redirect('/stories/')
+
+
+@app.route('/stories/')
+def stories_():
+    html.create_template()
+    return flask.render_template('output_index.html')
+
+@app.route('/stories/<date>/')
+def stories_date(date):
+    html.create_template(date, None)
+    return flask.render_template('output_index.html')
+
+@app.route('/stories/<date>/<int:idx>/')
+def stories_idx(date, idx):
+    html.create_template(date, idx)
+    return flask.render_template('output_index.html')
 
 app.run(host='0.0.0.0', debug=True, port=5000)
