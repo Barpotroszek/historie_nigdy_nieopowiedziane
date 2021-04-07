@@ -1,3 +1,2 @@
-__pycache__,
-templates/data.json
+__pycache__
 templates/output_index.html
