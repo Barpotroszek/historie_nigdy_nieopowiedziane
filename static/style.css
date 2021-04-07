@@ -56,8 +56,10 @@ input {
 }
 
 #story-content {
+    text-align: justify;
     margin: 1%;
-    font: normal Arial;
+    font-family: Arial;
+    font-size: 17px;
     width: 90%;
     height: 50%;
     border: 3.5px;
@@ -65,16 +67,31 @@ input {
     border-radius: 5px;
 }
 
-#submit {
-    position: absolute;
+#story-area {
+    text-align: justify;
+    margin: 1%;
+    font-family: Arial;
+    font-size: 17px;
+    width: 90%;
+    height: 60%;
+    border: 3.5px;
+    border-color: teal;
+    border-radius: 5px;
+}
+
+
+.buttons {
+    float: right;
     right: 5%;
     color: white;
     background-color: #383838;
-    font-size: 17px;
+    font-size: 18px;
     padding: 5px;
     font-style: italic;
-    margin: 5px;
+    margin-top: 1.5%;
+    margin-right: 2%;
 }
+
 
 .data-out {
     font-size: 22px;
