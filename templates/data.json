@@ -64,20 +64,9 @@
                 "time": "19:33",
                 "saved": "False",
                 "content": "Mam powoli dośc, ale jestem dzielny\r\nja się tak nie poddam\r\nnie e"
-            },
-            {
-                "title": "Siemaneczko",
-                "time": "20:01",
-                "saved": "False",
-                "content": "Siemanemaneczko"
-            },
-            {
-                "title": "adsfgd",
-                "time": "20:03",
-                "saved": "False",
-                "content": "aefsdg"
             }
         ]
     },
-    "copyright": "Bartosz Larenta"
+    "copyright": "Bartosz Larenta",
+    "author":"unrecognized"
 }
