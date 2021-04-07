@@ -100,8 +100,9 @@ class templates:
             hrefs = [a for a in posts]
             title = 'Wszystkie możliwe dni do wyboru'
             content = []
-
-            for a in hrefs.reverse():
+            
+            for a in reversed(hrefs):
+                print(a)
                 line = f'<li><a class="link" href="{a}">{a}</a></li>'
                 content.append(line)
             translate = {'^title^' : str(title), "^content^":'\n'.join(content)}
@@ -155,3 +156,5 @@ class templates:
             string = self.change_source(date, idx)
             f.write(string)
             f.close()
+
+print(templates().change_source())
