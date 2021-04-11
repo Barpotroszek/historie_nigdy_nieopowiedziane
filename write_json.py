@@ -154,7 +154,7 @@ class templates:
         post = posts[idx]
         title = post['title']
         content = post['content']
-        translate = {'^title^' : str(title), "^content^":content, "\r\n":'<br>'}
+        translate = {'^title^' : str(title), "^content^":content, "\r\n":'<br>&nbsp;&nbsp; ', "<<":"&lt;&lt", ">>":"&gt;&gt"}
 
         with open('templates/clear_template.html', 'r', encoding='utf-8') as html:
             source = str(html.read())

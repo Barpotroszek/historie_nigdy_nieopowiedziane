@@ -6,12 +6,13 @@ html{
 
 #nagłówek {
     color: white;
+    margin: 15px;
     font-style: italic;
     text-align: center;
 }
 
 hr {
-    margin: 2%;
+    margin: 1%;
     width: 96%;
 }
 
