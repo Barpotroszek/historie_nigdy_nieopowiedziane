@@ -1,6 +1,6 @@
 import flask, os
 from write_json import templates
-import datetime
+from kill import kill_process
 
 app = flask.Flask(__name__, static_url_path='')
 #static folder -> style.css
@@ -10,6 +10,13 @@ html = templates()
 with open("pid.txt", "w+") as pid_file:
     pid_file.write(str(os.getpid()))
     pid_file.close()
+
+@app.after_request
+def check_status(response):
+    status = response.status_code
+    if status == 500:
+        kill_process()
+    return response
 
 @app.route('/uploads/<path:filename>')
 def download_files(filename):
