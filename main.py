@@ -7,15 +7,23 @@ app = flask.Flask(__name__, static_url_path='')
 #templates -> html files
 html = templates()
 
-@app.route('/', methods=['GET'])
-def index():   
-    return flask.render_template('index.html')
+with open("pid.txt", "w+") as pid_file:
+    pid_file.write(str(os.getpid()))
+    pid_file.close()
 
 @app.route('/uploads/<path:filename>')
 def download_files(filename):
     print('file', filename)
     return  flask.send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+@app.route('/favicon.ico')
+def favicon():
+    return flask.send_from_directory(os.path.join(app.root_path, 'static'),
+                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
+
+@app.route('/', methods=['GET'])
+def index():   
+    return flask.render_template('index.html')
 
 @app.route('/', methods=['POST'])
 def index_post():
