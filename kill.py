@@ -1,4 +1,4 @@
-import os, time, requests
+import os, time
 
 def kill_process():
     '''Restarts program'''
