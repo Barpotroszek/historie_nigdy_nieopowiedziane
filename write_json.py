@@ -13,7 +13,7 @@ class templates:
                 return True 
         return False #jeśli nie ma takiej
 
-    def add_post(self, title,content):
+    def add_post(self, title, select_type, content):
         '''Dodaje post do pliku json i zwraca w tupli link z tytułem wpisu'''
         with open(file_name, 'r+', encoding='utf-8') as f:
             data = json.loads(f.read())
@@ -31,6 +31,7 @@ class templates:
             var['title'] = title
             now_time = datetime.datetime.now().strftime('%H:%M')
             var['time'] = now_time
+            var['type'] = select_type
             var['saved'] = "False"
             var['content'] = content
             #dodaj ten słownik do listy dzisiejszych postów
@@ -170,11 +171,11 @@ class templates:
             f.write(string)
             f.close()
 
-    def post_template(self, title, content):
+    def post_template(self, title, select_type, content):
         with open('templates/post.html', 'r', encoding='utf-8') as html:
             source = html.read()
             html.close()
-            link = self.add_post(title, content)
+            link = self.add_post(title, select_type, content)
 
         translate = {'^title^' : str(title), "^link^":link}
             

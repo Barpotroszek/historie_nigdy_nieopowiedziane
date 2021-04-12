@@ -36,14 +36,16 @@ def index():
 def index_post():
     title = flask.request.form['story-title'],
     title = ''.join(map(str, title))
+    select_type = flask.request.form['select-type']
     content = flask.request.form['story-content']
+    print("Selected:", select_type)
 
     if '#word' in str(title):
         title = title[6:]
         amount = html.send_to_wordpress(title, content)
         return flask.redirect(flask.url_for('post_wordpress', amount=amount))
     
-    html.post_template(title, content)       
+    html.post_template(title, select_type, content)       
     return flask.redirect(flask.url_for('post_normal'))
     
 

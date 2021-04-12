@@ -44,11 +44,15 @@ input {
     padding-right: 10px;
 }
 
+select {
+    padding: 3px;
+}
+
 .story-label{
     font-size: large;
 }
 
-#title_div {
+#title_div, #select-div {
     margin-bottom: 2%;
 }
 
