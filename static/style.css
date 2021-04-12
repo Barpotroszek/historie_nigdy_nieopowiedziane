@@ -2,6 +2,7 @@ html{
     background-color: #383838;
     text-shadow: black 2px 2px 3px;
     color: white;
+    margin-bottom: 20px;
 }
 
 #nagłówek {
@@ -9,6 +10,10 @@ html{
     margin: 15px;
     font-style: italic;
     text-align: center;
+}
+
+#nagłówek:hover {
+    color: #ffffffbd;
 }
 
 hr {
@@ -59,7 +64,6 @@ input {
     border-color: #006680;
 }
 
-
 .data-out {
     margin: 2%;   
 }
@@ -97,15 +101,6 @@ input {
     font-size: 20px;
 }
 
-ul{
-    margin-top: 2%;
-    padding: 2%;
-}
-
-li{ 
-    padding: 0.5%;
-}
-
 .buttons {
     float: right;
     right: 5%;
@@ -114,6 +109,22 @@ li{
     font-size: 15px;
     padding: 5px;
     font-style: italic;
-    margin-top: 1.5%;
+    margin-top: 5px;
+}
+
+#stories-button {
+    margin-right: 10px;
+}
+
+#submit {
     margin-right: 2%;
+}
+
+ul{
+    margin-top: 4px;
+    padding: 2px;
+}
+
+li{ 
+    padding: 0.5%;
 }
