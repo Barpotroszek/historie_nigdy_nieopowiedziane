@@ -45,7 +45,7 @@ def index():
 def index_post():
     title = flask.request.form['story-title'],
     title = ''.join(map(str, title))
-    category = flask.request.form['select-type']
+    category = flask.request.form['category']
     content = flask.request.form['story-content']
     print("Selected:", category)
 

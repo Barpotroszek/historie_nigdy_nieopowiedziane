@@ -50,7 +50,7 @@ class templates:
             
             
             amount = len(today_posts)
-            link = "{}/{}".format(today, amount-1)
+            link = "date/{}/{}".format(today, amount-1)
             return link
 
     def send_to_wordpress(self, title, content):
