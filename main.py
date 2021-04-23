@@ -5,7 +5,16 @@ from kill import kill_process
 app = flask.Flask(__name__, static_url_path='')
 #static folder -> style.css
 #templates -> html files
-html = templates()
+path = ""
+
+categories = [
+    ("swiadectwo", "Świadectwo"),
+    ("modlitwa", "Modlitwa"),
+    ("historia", "Historia"),
+    ("inne", "Inne")
+    ]
+
+html = templates(categories)
 
 with open("pid.txt", "w+") as pid_file:
     pid_file.write(str(os.getpid()))
@@ -30,22 +39,22 @@ def favicon():
 
 @app.route('/', methods=['GET'])
 def index():   
-    return flask.render_template('index.html')
+    return flask.render_template('index.html', lenght = len(categories), categories = categories)
 
 @app.route('/', methods=['POST'])
 def index_post():
     title = flask.request.form['story-title'],
     title = ''.join(map(str, title))
-    select_type = flask.request.form['select-type']
+    category = flask.request.form['select-type']
     content = flask.request.form['story-content']
-    print("Selected:", select_type)
+    print("Selected:", category)
 
     if '#word' in str(title):
         title = title[6:]
         amount = html.send_to_wordpress(title, content)
         return flask.redirect(flask.url_for('post_wordpress', amount=amount))
     
-    html.post_template(title, select_type, content)       
+    html.post_template(title, category, content)       
     return flask.redirect(flask.url_for('post_normal'))
     
 
@@ -63,24 +72,19 @@ def stories_json():
     file_string = html.give_dict()
     return flask.jsonify(file_string)
 
+
 @app.route('/stories')
-def stories_slash():
-    return flask.redirect('/stories/')
-
-
 @app.route('/stories/')
-def stories_():
-    html.create_template()
+def choose_sorting():
+    html.create_template(sorting_style = True)
     return flask.render_template('output_index.html')
 
-@app.route('/stories/<date>/')
-def stories_date(date):
-    html.create_template(date, None)
+@app.route('/stories/<show_by>/')
+@app.route('/stories/<show_by>/<first_place>/')
+@app.route('/stories/<show_by>/<first_place>/<int:idx>/')
+def stories_date(show_by=None, first_place=None, idx=None):
+    html.create_template(show_by=show_by, first_place=first_place, idx=idx)
     return flask.render_template('output_index.html')
 
-@app.route('/stories/<date>/<int:idx>/')
-def stories_idx(date, idx):
-    html.create_template(date, idx)
-    return flask.render_template('output_index.html')
 
 app.run(host='0.0.0.0', debug=True, port=5000)

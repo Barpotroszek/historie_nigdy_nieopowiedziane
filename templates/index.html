@@ -18,13 +18,12 @@
             <input name="story-title" type="text" placeholder="Tytuł twojej historii" class="data-in">
         </div>
         <div id="select-div">
-        <label for="select-type">Wybierz typ swojego wpisu:</label>
-            <select name="select-type" id="select-type" class="data-in" required>
+        <label for="category">Wybierz typ swojego wpisu:</label>
+            <select name="category" id="category" class="data-in" required>
                 <option value=""></option>
-                <option value="swiadectwo">Świadectwo</option>
-                <option value="modlitwa">Modlitwa</option>
-                <option value="historia">Historia</option>
-                <option value="inne">inne</option>
+                {% for a in range(0, lenght) %}
+                <option value={{ categories[a][0] }}>{{ categories[a][1] }}</option>
+                {% endfor %}
             </select>
         </div>
         <div id="content_div">
@@ -35,7 +34,7 @@
         </div>
             <button id="submit" class="data-in buttons" type="submit">Wyślij</button>
     </form>
-    <a href="/stories">
+    <a href="/stories/">
         <button id="stories-button" class="data-in buttons">Przysłane historie</button>
     </a>
     </div>

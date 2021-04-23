@@ -24,7 +24,6 @@ hr {
 label {
     color: white;
     font-style: italic;
-    font: 30px;
     margin: 2%;
     font-size: 17px;
 }
@@ -53,7 +52,7 @@ select {
 }
 
 #title_div, #select-div {
-    margin-bottom: 2%;
+    margin-bottom: 7px;
 }
 
 .data-in {
@@ -103,6 +102,7 @@ select {
 
 #story-links {
     font-size: 20px;
+    margin-top: 10px;
 }
 
 .buttons {
