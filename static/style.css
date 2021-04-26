@@ -16,9 +16,10 @@ html{
     color: #ffffffbd;
 }
 
-hr {
+svg {
     margin: 1%;
-    width: 96%;
+    width: 98%;
+    height: 1px;
 }
 
 label {
@@ -131,4 +132,52 @@ ul{
 
 li{ 
     padding: 0.5%;
+}
+
+/* Container, menu*/
+ol {
+    list-style: none;
+}
+
+#container {
+    margin-top: auto;
+    text-align: center;
+    margin-left: 4%;
+    width: 92%;
+    text-shadow: black 2px 2px 3px;
+}
+
+#menu-bar {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.menu-button {
+    height: 3px;
+    min-width: 20px;
+    background-color: white; 
+    margin: 3px;
+    box-shadow: black 2px 2px 3px;
+}
+
+.menu-title {
+    float: left;
+    margin: 0px;
+}
+
+#menu-elements {
+    display: none;
+    padding: 0px;
+    margin: 0 auto;
+    width: auto;
+}
+
+#menu-elements > li {
+    border-top: #00d9ff 2px solid;
+    padding: 8px;
+}
+
+#menu-elements > li:first-child {
+    border-top: none;
+    padding: 4px;
 }
