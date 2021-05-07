@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>O stronie | Historie nigdy nieopowiedziane</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='flavicon.ico') }}">
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
+    <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
+</head>
+
+<body>
+    <a href="/"><h1 id="nagłówek">Historie nigdy nieopowiedziane</h1></a>
+    <svg>
+        <line  x1="0" y1="0" x2="100%" y2="0" style="stroke:white;stroke-width:2" />
+    </svg>
+    <div id="container">
+        <div id="menu-bar" onclick="change_menu()">
+            <p class="menu-title" id="menu-title">Menu</p>
+            <div class="menu-title" id="menu-button">
+                <div class="menu-button"></div>
+                <div class="menu-button"></div>
+                <div class="menu-button"></div>
+            </div>
+        </div>
+        <ol id="menu-elements">
+            <li><a href="/about">O stronie</a></li>
+            <li><a href="stories">Przysłane historie</a></li>
+            <li><a href="">Instagram</a></li>
+            <li><a href="">Kod źródłowy</a></li>
+        </ol>
+    </div>
+    <svg><line  x1="0" y1="0" x2="100%" y2="0" style="stroke:white;stroke-width:2" /></svg>
+    <dl class='data-out'>
+        <dt id="story-title">&nbsp; O stronie</dt>
+        <dd id="story-content">
+            <p>&nbsp;&nbsp; Niejednokrotnie miałem sytuację, że chciałem się podzielić swoim przeżyciem, lecz bałem się o tym mówić. "Co ludzie pomyślą? Przecież oni się ode mnie odwrócą...".</p>
+            <p><b><i>&nbsp;"Historie&nbsp;nigdy&nbsp;nieopowiedziane"</i></b> to miejsce, gdzie każda osoba może anonimowo zamieścić swoją historię, świadectwo, modlitwę, cytat zapadający w głowie, bądź coś innego. Wszystko, co pojawi się na tej stronie, zależy tak na prawdę od Was, użytkowników. Posty będą udostępniane automatycznie na profilu instagramowym przez program(prace nad nim jeszcze trwają), który będzie uruchamiany co jakiś czas.</p>
+
+        <p>&nbsp; Nie krempujcie się. Piszcie śmiało. Wasze dane nie są w żaden sposób przechowywane, zbierane, czy jakkolwiek sprawdzane. Nikt nie dowie się kto wysłał waszą historię, nawet administratorzy tej strony. Możecie sprawdzić kod źródłowy, nie ma tu żadnych tajemnic.</p>
+        <p style="text-align:right">Dziękuję, za wasze zaangażowanie,<br><i>Bartek, administrator</i>
+        </p>
+    </dd>
+    </dl>
+    <a onclick="window.history.go(-1)">
+        <button id='submit' class="data-in buttons">Powrót</button>
+    </a>
+</body>
+
+</html>
