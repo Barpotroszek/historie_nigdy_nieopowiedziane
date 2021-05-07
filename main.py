@@ -7,10 +7,13 @@ app = flask.Flask(__name__, static_url_path='')
 #templates -> html files
 path = ""
 
+os.chdir(os.path.dirname(__file__))
+
 categories = [
     ("swiadectwo", "Świadectwo"),
     ("modlitwa", "Modlitwa"),
     ("historia", "Historia"),
+    ("cytat", "Cytat"),
     ("inne", "Inne")
     ]
 
@@ -57,21 +60,23 @@ def index_post():
     html.post_template(title, category, content)       
     return flask.redirect(flask.url_for('post_normal'))
     
-
 @app.route('/thanks/<amount>')
 def post_wordpress(amount):
     return flask.render_template('output_index.html', dane=amount)
-
 
 @app.route('/thanks')
 def post_normal():
     return flask.render_template('output_index.html')
 
+@app.route('/about')
+def about():
+    return flask.render_template("about.html")
+
+
 @app.route('/stories/json')
 def stories_json():
     file_string = html.give_dict()
     return flask.jsonify(file_string)
-
 
 @app.route('/stories')
 @app.route('/stories/')
@@ -85,6 +90,5 @@ def choose_sorting():
 def stories_date(show_by=None, first_place=None, idx=None):
     html.create_template(show_by=show_by, first_place=first_place, idx=idx)
     return flask.render_template('output_index.html')
-
 
 app.run(host='0.0.0.0', debug=True, port=5000)
