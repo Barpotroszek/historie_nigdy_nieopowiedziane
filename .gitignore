@@ -1,3 +1,4 @@
 __pycache__
 templates/output_index.html
-pid.txt
+*.txt
+*.png
