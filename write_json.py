@@ -208,7 +208,7 @@ class templates:
             post = posts[idx]
             title = post['title']
             content = post['content']
-            translate = {'^title^' : str(title), "^content^":content, "\r\n":'<br>&nbsp;&nbsp; ', "<<":"&lt;&lt", ">>":"&gt;&gt"}
+            translate = {'^title^' : str(title), "^content^":"<p>{}</p>".format(content), "\r\n":'</p><p>', "<<":"&lt;&lt", ">>":"&gt;&gt"}
 
             return edit_source('clear_template.html', translate)
 
