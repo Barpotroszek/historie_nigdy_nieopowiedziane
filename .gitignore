@@ -1,4 +1,6 @@
 __pycache__
 templates/output_index.html
+templates/change_all.py
 *.txt
-*.png
+bot_publisher/photos/*
+.env
