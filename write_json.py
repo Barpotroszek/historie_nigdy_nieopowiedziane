@@ -91,11 +91,16 @@ class templates:
         with open(file_json, 'r', encoding='utf-8') as f:
             return json.loads(f.read())
 
-    def give_links(self, tuple_list):
+    def give_links(self, tuple_list, reverse: bool):
         output = []
-        for a, b in reversed(tuple_list):
-            line = f'\n<li><a class="story-link" href="{a}">{b}</a></li>'
-            output.append(line)
+        if reverse:
+            for a, b in reversed(tuple_list):
+                line = f'\n<li><a class="story-link" href="{a}">{b}</a></li>'
+                output.append(line)
+        else:
+            for a, b in tuple_list:
+                line = f'\n<li><a class="story-link" href="{a}">{b}</a></li>'
+                output.append(line)
         return output
 
     def give_filtered(self, filter_name):
@@ -121,7 +126,7 @@ class templates:
 
     def change_source(self, show_by=None, first_place=None, idx=None):
         '''Tworzy listę z odnośnikami lub stronę z historią'''
-
+        translate = {}
         with open(file_json, 'r', encoding='utf-8') as js:
             data = json.loads(js.read())
             js.close()
@@ -138,8 +143,9 @@ class templates:
         if show_by == None:
             title = "Wybierz sortowanie"
             links = [('date', "Według daty"), ('filtr', "Według kategorii")]
-            content = self.give_links(links)
-            translate = {'^title^' : str(title), "^content^":''.join(content)}
+            content = self.give_links(links, True)
+            translate['^title^'] = str(title)
+            translate['^content^'] = ''.join(content)
             return edit_source('hrefs_template.html', translate)
 
         if show_by == 'filtr': #Jeżeli filtrujemy
@@ -147,14 +153,20 @@ class templates:
                 print('category')
                 posts = self.give_filtered(first_place)
                 title = f"Posty z kategorii: {self.translated[first_place]}"
-                content = self.give_links(posts)
-                translate = {'^title^' : str(title), "^content^":''.join(content)}
+                content = self.give_links(posts, True)
+                
+                translate['^title^'] = str(title)
+                translate['^content^'] = ''.join(content)
                 return edit_source("hrefs_template.html", translate)
+
             print("Filtered")
+
             posts = self.categories     #Wyświetlanie możliwych Kategorii
             title = "Filtry do wyboru"
-            content = self.give_links(posts)
-            translate = {'^title^' : str(title), "^content^":''.join(content)}
+            content = self.give_links(posts, False)
+            
+            translate['^title^'] = str(title)
+            translate['^content^'] = ''.join(content)
             return edit_source("hrefs_template.html", translate)
 
         if show_by == "date":
@@ -164,17 +176,19 @@ class templates:
             if first_place is None:
                 print("Date None")
                 hrefs = [a for a in posts]
-                title = 'Wszystkie możliwe dni do wyboru'
+                title = 'Wszystkie miesiące możliwe do wyboru'
                 content = []
 
                 #łączy daty w pary w pary  <a href=date>date</a>
                 tuple_list = [(a,a) for a in hrefs]
-                content = self.give_links(tuple_list)
-                translate = {'^title^' : str(title), "^content^":''.join(content)}
+                content = self.give_links(tuple_list, True)
+                    
+                translate['^title^'] = str(title)
+                translate['^content^'] = ''.join(content)
                 
                 return edit_source('hrefs_template.html', translate)
 
-            #Zwraca wszystkie wpisy ze wskazanego dnia
+            #Zwraca wszystkie wpisy ze wskazanego miesiąca
             posts = data['posts'][first_place]
 
             if idx is None:
@@ -198,8 +212,10 @@ class templates:
                 links = [(a,b) for a,b in enumerate(hrefs)] 
 
                 #tworzy linki segregując je od najstarszych do najnowszych 
-                content = self.give_links(links)
-                translate = {'^title^' : str(title), "^content^":''.join(content)}
+                content = self.give_links(links, True)
+                
+                translate['^title^'] = str(title)
+                translate['^content^'] = ''.join(content)
                 
                 return edit_source('hrefs_template.html', translate)
 
@@ -208,7 +224,12 @@ class templates:
             post = posts[idx]
             title = post['title']
             content = post['content']
-            translate = {'^title^' : str(title), "^content^":"<p>{}</p>".format(content), "\r\n":'</p><p>', "<<":"&lt;&lt", ">>":"&gt;&gt"}
+
+            translate['^title^' ] = str(title) 
+            translate["^content^"] = f"<p>{content}</p>" 
+            translate["\r\n"] = '</p><p>' 
+            translate["<<"] = "&lt;&lt"
+            translate[">>"] = "&gt;&gt"
 
             return edit_source('clear_template.html', translate)
 
