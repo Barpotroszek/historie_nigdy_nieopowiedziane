@@ -3,9 +3,14 @@ from write_json import templates
 from kill import kill_process
 
 app = flask.Flask(__name__, static_url_path='')
+
+os.chdir(os.path.dirname(__file__))
 #static folder -> style.css
 #templates -> html files
-path = ""
+
+head_file = open("static/head.html", "r", encoding="utf-8")
+head = head_file.read()
+head_file.close()
 
 os.chdir(os.path.dirname(__file__))
 
@@ -32,20 +37,24 @@ def check_status(response):
 
 @app.route('/uploads/<path:filename>')
 def download_files(filename):
+    global head
     print('file', filename)
     return  flask.send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/favicon.ico')
 def favicon():
+    global head
     return flask.send_from_directory(os.path.join(app.root_path, 'static'),
                           'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 @app.route('/', methods=['GET'])
 def index():   
-    return flask.render_template('index.html', lenght = len(categories), categories = categories)
+    global head
+    return flask.render_template('index.html', head=head, categories = categories)
 
 @app.route('/', methods=['POST'])
 def index_post():
+    global head
     title = flask.request.form['story-title'],
     title = ''.join(map(str, title))
     category = flask.request.form['category']
@@ -62,33 +71,44 @@ def index_post():
     
 @app.route('/thanks/<amount>')
 def post_wordpress(amount):
-    return flask.render_template('output_index.html', dane=amount)
+    global head
+    return flask.render_template('output_index.html', dane=amount, head=head)
 
 @app.route('/thanks')
 def post_normal():
-    return flask.render_template('output_index.html')
+    global head
+    return flask.render_template('output_index.html', head=head)
 
 @app.route('/about')
 def about():
-    return flask.render_template("about.html")
+    global head
+    return flask.render_template("about.html", head=head)
 
 
 @app.route('/stories/json')
 def stories_json():
+    global head
     file_string = html.give_dict()
     return flask.jsonify(file_string)
 
 @app.route('/stories')
 @app.route('/stories/')
 def choose_sorting():
+    global head
     html.create_template(sorting_style = True)
-    return flask.render_template('output_index.html')
+    return flask.render_template('output_index.html', head=str(head))
 
 @app.route('/stories/<show_by>/')
 @app.route('/stories/<show_by>/<first_place>/')
 @app.route('/stories/<show_by>/<first_place>/<int:idx>/')
 def stories_date(show_by=None, first_place=None, idx=None):
+    global head
     html.create_template(show_by=show_by, first_place=first_place, idx=idx)
-    return flask.render_template('output_index.html')
+    return flask.render_template('output_index.html', head=head)
+
+@app.route('/welcome')
+def welcome():
+    global head
+    return flask.render_template("welcome_post.html", head = head)
 
 app.run(host='0.0.0.0', debug=True, port=5000)
