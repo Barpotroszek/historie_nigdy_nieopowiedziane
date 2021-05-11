@@ -7,24 +7,16 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='flavicon.ico') }}">
     <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
     <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
-    <title>O stronie | Historie nigdy nieopowiedziane</title>
+    <title>Strona wystartowała! | Historie nigdy nieopowiedziane</title>
     {{ head | safe }}
+
 </head>
-
-
 
 <body>
     <dl class='data-out'>
-        <dt id="story-title">&nbsp; O stronie</dt>
+        <dt id="story-title">&nbsp; Strona wystartowała!</dt>
         <dd id="story-content">
-            <p>&nbsp;&nbsp; Niejednokrotnie miałem sytuację, że chciałem się podzielić swoim przeżyciem, lecz bałem się
-                o tym mówić. "Co ludzie pomyślą? Przecież oni się ode mnie odwrócą...".</p>
-            <p><b><i>&nbsp;"Historie&nbsp;nigdy&nbsp;nieopowiedziane"</i></b> to miejsce, gdzie każda osoba może
-                anonimowo zamieścić swoją historię, świadectwo, modlitwę, cytat podnoszący na duchu, bądź coś innego.
-                Wszystko, co pojawi się na tej stronie, zależy tak na prawdę od Ciebie, użytkownika. Posty będą
-                udostępniane automatycznie na profilu instagramowym za pomocą programu(prace nad nim jeszcze trwają),
-                który będzie uruchamiany co jakiś czas.</p>
-
+            <p>Od teraz każdy użytkownik może anonimowo opublikować swoją nieopowiedzianą historię.</p>
             <ul id="lista" style="list-style:decimal;">Wysłanie takiego wpisu to nic ciężkiego:
                 <li class="el">Wejdź na stronę podaną w biogramie,</li>
                 <li class="el">Podaj tytuł swojego wpisu,</li>
@@ -34,19 +26,18 @@
                 <p style="margin-top: 4px;">i gotowe. Od tej chwili możesz znaleźć swój wpis w zakładce <i>"Przysłane historie"</i>.</p>
             </ul>
 
-            <p>&nbsp;Twoje dane nie są w żaden sposób przechowywane, zbierane, czy jakkolwiek sprawdzane. Nikt nie dowie się kto wysłał dany wpis, nawet administratorzy tej strony. Możesz sprawdzić kod źródłowy, nie ma tu żadnych tajemnic.</p>
             <p>Masz jakiś pomysł na ulepszenie tej strony? Pisz śmiało! Zobaczymy co da się zrobić😉.</p>
+            <p>W przyszłości posty będą opublikowane na tym profilu, tylko niech uzbiera się ich trochę więcej😁.</p>
             <p>Proszę o udostępnianie. Dajmy rozgłos tej stronce!</p>
-            <p style="text-align:right">Dziękuję, za zaangażowanie,<br><i>Bartek, administrator</i>
-            </p>
         </dd>
     </dl>
+
     <a onclick="window.history.go(-1)">
         <button id='submit' class="data-in buttons">Powrót</button>
     </a>
     <script>
         function change_padding() {
-            document.getElementById('lista').style.marginLeft = "2px";
+            document.getElementById('lista').style.marginLeft = "15px";
             elements = document.getElementsByClassName('el')
             for (var a = 0; a < elements.length; a++) {
                 elements[a].style.marginLeft = "20px"

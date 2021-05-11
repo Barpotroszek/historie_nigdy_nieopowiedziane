@@ -4,34 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Historie nigdy nieopowiedziane</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='flavicon.ico') }}">
-    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
     <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
+	<title>Strona główna | Historie nigdy nieopowiedziane</title>
+    {{ head | safe }}
+
 </head>
 
 <body>
-    <h1 id="nagłówek">Historie nigdy nieopowiedziane</h1>
-    <svg>
-        <line  x1="0" y1="0" x2="100%" y2="0" style="stroke:white;stroke-width:2" />
-    </svg>
-    <div id="container">
-        <div id="menu-bar" onclick="change_menu()">
-            <p class="menu-title" id="menu-title">Menu</p>
-            <div class="menu-title" id="menu-button">
-                <div class="menu-button"></div>
-                <div class="menu-button"></div>
-                <div class="menu-button"></div>
-            </div>
-        </div>
-        <ol id="menu-elements">
-            <li><a href="/about">O stronie</a></li>
-            <li><a href="stories">Przysłane historie</a></li>
-            <li><a href="">Instagram</a></li>
-            <li><a href="https://github.com/Barpotroszek/historie_nigdy_nieopowiedziane">Kod źródłowy</a></li>
-        </ol>
-    </div>
-    <svg><line  x1="0" y1="0" x2="100%" y2="0" style="stroke:white;stroke-width:2" /></svg>
     <form method="POST">
         <div id="title_div">
             <label for='story-title'>Podaj tytuł twojego wpisu: </label>
@@ -41,8 +22,8 @@
             <label for="category">Wybierz typ swojego wpisu:</label>
             <select name="category" id="category" class="data-in" required>
                 <option value=""></option>
-                {% for a in range(0, lenght) %}
-                <option value={{ categories[a][0] }}>{{ categories[a][1] }}</option>
+                {% for a in categories %}
+                <option value={{ a[0] }}>{{ a[1] }}</option>
                 {% endfor %}
             </select>
         </div>

@@ -4,33 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>^title^ | Historie nigdy nieopowiedziane</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='flavicon.ico') }}">
     <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
+    <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
+	<title>^title^ | Historie nigdy nieopowiedziane</title>
+    {{ head | safe }}
+
 </head>
 
 <body>
-    <a href="/"><h1 id="nagłówek">Historie nigdy nieopowiedziane</h1></a>
-    <svg>
-        <line  x1="0" y1="0" x2="100%" y2="0" style="stroke:white;stroke-width:2" />
-    </svg>
-    <div id="container">
-        <div id="menu-bar" onclick="change_menu()">
-            <p class="menu-title" id="menu-title">Menu</p>
-            <div class="menu-title" id="menu-button">
-                <div class="menu-button"></div>
-                <div class="menu-button"></div>
-                <div class="menu-button"></div>
-            </div>
-        </div>
-        <ol id="menu-elements">
-            <li><a href="/about">O stronie</a></li>
-            <li><a href="stories">Przysłane historie</a></li>
-            <li><a href="">Instagram</a></li>
-            <li><a href="https://github.com/Barpotroszek/historie_nigdy_nieopowiedziane">Kod źródłowy</a></li>
-        </ol>
-    </div>
-    <svg><line  x1="0" y1="0" x2="100%" y2="0" style="stroke:white;stroke-width:2" /></svg>
     <dl class='data-out'>
         <dt id="story-title"> &nbsp; ^title^</dt>
         <dd id="story-links" class="content">
