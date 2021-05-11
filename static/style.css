@@ -7,7 +7,7 @@ html{
 
 #nagłówek {
     color: white;
-    margin: 15px;
+    margin: 10px;
     font-style: italic;
     text-align: center;
 }
@@ -30,8 +30,8 @@ label {
 }
 
 p {
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-bottom: 7px;
+    margin-top: 7px;
     text-indent: 15px;
 }
 
@@ -75,7 +75,8 @@ select {
 }
 
 .data-out {
-    margin: 2%;   
+    margin: 2%;
+    margin-top: 2px;
 }
 
 #story-title, #title-href{
@@ -89,7 +90,6 @@ select {
 }
 
 #story-area {
-    text-align: justify;
     margin: 1%;
     font-family: Arial;
     font-size: 15px;
@@ -100,7 +100,6 @@ select {
 }
 
 #story-content {
-    text-align: justify;
     font-size: 16px;
     margin: 0.5%;
     margin-top: 2%;
