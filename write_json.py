@@ -7,7 +7,14 @@ var = {}
 class templates:
     def __init__(self, categories:list):
         self.categories = categories  #lisa tupli
+        self.categories.insert(len(self.categories)-1, ('non-censored', 'Niecenzuralne'))
         self.translated = {a:b for a,b in self.categories} #lista słownkiów zrobionych z tupli
+
+    def need_censore(self, tekst):
+        '''Zwraca True, jeśli znajdzie niewłaściwe słowa'''
+        curses = ['kurw', 'gówn', 'pierdol', 'pierdal', 'jeba']
+        if any(curse in tekst.lower() for curse in curses):
+            return True
 
     def searcher(self, lista: list, look_for):
         '''Sprwdza, czy jest zmienna przeznaczona na ten dzień'''
@@ -28,7 +35,9 @@ class templates:
 
             if not founded:
                 posts[today] = []   #jak nie znalazłeś, dodaj słownik do danego dnia
-        
+
+            if self.need_censore(content):
+                category = "non-censored"
             #przypisz liste dzisiejszych postów tej zmiennej
             today_posts = posts[today]  
             #stwórz nowy słownik z tymi danymi
@@ -175,7 +184,7 @@ class templates:
             posts = data['posts'] 
             if first_place is None:
                 print("Date None")
-                hrefs = [a for a in posts]
+                hrefs = [date for date in posts]
                 title = 'Wszystkie miesiące możliwe do wyboru'
                 content = []
 
@@ -199,12 +208,14 @@ class templates:
 
                 #w razie gdyby się powtarzały dodaje im numerek, np '#2'
                 for a in posts:
+                    if a['category'] == "non-censored":
+                        continue
                     title = a['title']
                     if title in titles:
                         title += f' #{titles.count(title)+1}'
                     hrefs.append(title)
                     titles.append(title)
-
+                print(hrefs)
                 title = first_place
                 content = []
                 
