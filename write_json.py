@@ -6,8 +6,10 @@ var = {}
 
 class templates:
     def __init__(self, categories:list):
-        self.categories = categories  #lisa tupli
+        self.categories = [a for a in categories]  #lisa tupli
         self.categories.insert(len(self.categories)-1, ('non-censored', 'Niecenzuralne'))
+        self.categories.insert(len(self.categories)-1, ('updates', 'Aktualizacje'))
+        self.dont_show = ['updates', 'non-censored', 'changes']
         self.translated = {a:b for a,b in self.categories} #lista słownkiów zrobionych z tupli
 
     def need_censore(self, tekst):
@@ -41,6 +43,9 @@ class templates:
             #przypisz liste dzisiejszych postów tej zmiennej
             today_posts = posts[today]  
             #stwórz nowy słownik z tymi danymi
+            if title.lower() in  ['aktualizacja', 'update'] :
+                title = 'Aktualizacja z dnia ' +  datetime.datetime.now().strftime('%d.%m.%Y')
+                category = 'updates'
             var['title'] = title
             now_time = datetime.datetime.now().strftime('%H:%M')
             var['time'] = now_time
@@ -208,7 +213,7 @@ class templates:
 
                 #w razie gdyby się powtarzały dodaje im numerek, np '#2'
                 for a in posts:
-                    if a['category'] == "non-censored":
+                    if a['category'] in self.dont_show:
                         continue
                     title = a['title']
                     if title in titles:

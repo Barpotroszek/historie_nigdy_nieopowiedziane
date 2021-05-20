@@ -7,20 +7,21 @@ app = flask.Flask(__name__, static_url_path='')
 #static folder -> style.css
 #templates -> html files
 
-head_file = open("static/head.html", "r", encoding="utf-8")
-head = head_file.read()
-head_file.close()
-
 try:
     os.chdir(os.path.dirname(__file__))
 except:
     pass
+
+head_file = open("static/head.html", "r", encoding="utf-8")
+head = head_file.read()
+head_file.close()
 
 categories = [
     ("swiadectwo", "Świadectwo"),
     ("modlitwa", "Modlitwa"),
     ("historia", "Historia"),
     ("cytat", "Cytat"),
+    ('changes', 'Możliwe poprawki'),
     ("inne", "Inne")
     ]
 
@@ -51,7 +52,7 @@ def favicon():
 
 @app.route('/', methods=['GET'])
 def index():   
-    global head
+    global head, categories
     return flask.render_template('index.html', head=head, categories = categories)
 
 @app.route('/', methods=['POST'])
