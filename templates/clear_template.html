@@ -20,6 +20,17 @@
     <a onclick="window.history.go(-1)">
         <button id='submit' class="data-in buttons">Powrót</button>
     </a>
+    <script>
+        function change_padding() {
+            document.getElementById('lista').style.marginLeft = "15px";
+            elements = document.getElementsByClassName('el')
+            for (var a = 0; a < elements.length; a++) {
+                elements[a].style.marginLeft = "20px"
+            }
+            console.log("Done it!");
+        }
+        window.onload = change_padding()
+    </script>
 </body>
 
 </html>
