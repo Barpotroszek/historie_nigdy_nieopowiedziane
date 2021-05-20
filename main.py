@@ -4,7 +4,6 @@ from kill import kill_process
 
 app = flask.Flask(__name__, static_url_path='')
 
-os.chdir(os.path.dirname(__file__))
 #static folder -> style.css
 #templates -> html files
 
@@ -12,7 +11,10 @@ head_file = open("static/head.html", "r", encoding="utf-8")
 head = head_file.read()
 head_file.close()
 
-os.chdir(os.path.dirname(__file__))
+try:
+    os.chdir(os.path.dirname(__file__))
+except:
+    pass
 
 categories = [
     ("swiadectwo", "Świadectwo"),
