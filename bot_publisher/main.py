@@ -29,10 +29,12 @@ class insta_bot():
         self.bot = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     
     def check_posts(self):
-        self.bot.get("http://localhost:5000/welcome")
+        '''Opening page you've given'''
+        self.bot.get(input('Podaj link do strony: '))
         self.bot.execute_script('document.styleSheets[0].cssRules[23].style.removeProperty("padding")')
 
     def make_shot(self):
+        '''Making screenshot of the page'''
         bot = self.bot
 
         #opróżnij ten folder -> usuń wcześniejsze zdjęcia
@@ -52,6 +54,7 @@ class insta_bot():
         print("Done")
 
     def login(self, login, passwd):
+        '''Opening Instagram and loging on it'''
         bot = self.bot
         bot.get("https://instagram.com/")
         bot.find_element_by_xpath('//button[text()="Akceptuję wszystko"]').click()
@@ -81,6 +84,7 @@ class insta_bot():
             pass
 
     def upload_photo(self, path: str):
+        '''Uploading photo'''
         import autoit as ai
         print(path)
         time.sleep(3)
@@ -98,6 +102,7 @@ class insta_bot():
                 break
         
     def send(self, path):
+        '''Publishing photo on Instagram'''
         bot = self.bot
         time.sleep(2)
         bot.find_element_by_xpath('//*[@data-testid="new-post-button"]').click()
@@ -121,8 +126,8 @@ class insta_bot():
 path = os.path.join('photos', 'photo 0.jpg')
 
 bot = insta_bot()
-#bot.check_posts()
-#bot.make_shot()
+bot.check_posts()
+bot.make_shot()
 
 bot.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
 bot.send(path)
