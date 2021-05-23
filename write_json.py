@@ -244,6 +244,7 @@ class templates:
 
             translate['^title^' ] = str(title) 
             translate['^category^'] = self.translated[category]
+            translate['^date^'] = post['date']
             translate["^content^"] = f"<p>{content}</p>" 
             translate["\r\n"] = '</p><p>' 
             translate["<<"] = "&lt;&lt"
