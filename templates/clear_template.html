@@ -9,12 +9,13 @@
     <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
 	<title>^title^ | Historie nigdy nieopowiedziane</title>
     {{ head | safe }}
-
 </head>
 
 <body>
     <dl class='data-out'>
         <dt id="story-title">&nbsp; ^title^</dt>
+        <dd id='story-category' hidden>^category^</dd>
+        <dd id='story-tags' hidden>^tags^</dd>
         <dd id="story-content"> ^content^ </dd>
     </dl>
     <a onclick="window.history.go(-1)">

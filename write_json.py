@@ -239,9 +239,11 @@ class templates:
             print("post")
             post = posts[idx]
             title = post['title']
+            category = post['category']
             content = post['content']
 
             translate['^title^' ] = str(title) 
+            translate['^category^'] = self.translated[category]
             translate["^content^"] = f"<p>{content}</p>" 
             translate["\r\n"] = '</p><p>' 
             translate["<<"] = "&lt;&lt"
