@@ -48,7 +48,7 @@ class templates:
                 category = 'updates'
             var['title'] = title
             now_time = datetime.datetime.now().strftime('%d.%m.%Y')
-            var['time'] = now_time
+            var['date'] = now_time
             var['category'] = category
             var['saved'] = "False"
             var['content'] = content
