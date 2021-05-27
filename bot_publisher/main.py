@@ -30,7 +30,7 @@ class insta_bot():
 
 
     def check_posts(self):
-        '''Opening page you've given'''
+        '''Open page you've given'''
         #self.bot.get(input('Podaj link do strony: '))
         self.bot.get(self.link)
         time.sleep(3)
@@ -50,10 +50,13 @@ class insta_bot():
         to_print = [f"{a} -> {b}" for a,b in self.variabeles_to_template.items()]
         print('\n'.join(to_print))
 
- 
- 
+    def update_last_post_tab(self):
+        '''Update "Ostatni udostępniony post" tab on main website'''
+        link = 'http://historie.nieopowiedziane.repl.co/published_post?link='+self.link
+        self.bot.get(link)
+
     def make_shot(self):
-        '''Making screenshot of the page'''
+        '''Make screenshot of the page'''
         bot = self.bot
 
         #opróżnij ten folder -> usuń wcześniejsze zdjęcia
@@ -72,7 +75,7 @@ class insta_bot():
         print("Screen saved!")
 
     def upload_photo_by_autoit(self, path: str):
-        '''Uploading photo'''
+        '''Uploads photo'''
         import autoit as ai
         print("Uploading by autoit")
         #print(path)
@@ -117,7 +120,7 @@ class insta_bot():
                 time.sleep(3)
     
     def publish_post_by_latelysocial(self, username, password):
-        '''Publishing photos by latelysocial.com'''
+        '''Publish photos by latelysocial.com'''
         bot = self.bot
         #login to site latelysocial
         bot.get('https://latelysocial.com/auth/login')
@@ -184,7 +187,7 @@ class insta_bot():
         return
 
     def publish_post_by_instagram(self, login, passwd):
-        '''Publishing photos with caption over instagram.com'''
+        '''Publish photos with caption over instagram.com'''
         bot = self.bot
         
         #Login to instagram
@@ -235,7 +238,7 @@ class insta_bot():
 
 
     def create_caption(self):
-        '''Tworzenie opisu'''
+        '''Create caption for photo under Instagram'''
         print('Tworzenie opisu')
         with open('template_opis.txt', 'r', encoding='utf-8') as f:
             template = f.read()
@@ -248,7 +251,7 @@ class insta_bot():
             f.close()
 
     def clean_file_manager(self):
-        '''Usuwanie starych plików'''
+        '''Delete files in file manager on latelysocial website'''
         bot = self.bot
         print('Clean files')
         bot.get('https://latelysocial.com/file_manager')
@@ -265,7 +268,7 @@ sub.run('pause', shell=True)
 bot.create_caption()
 
 bot.make_shot()
-
+bot.update_last_post_tab()
 bot.publish_post_by_instagram(os.getenv('LOGIN'), os.getenv('PASSWORD'))
 #bot.clean_file_manager()
 
