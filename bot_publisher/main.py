@@ -57,16 +57,15 @@ class insta_bot():
         bot = self.bot
 
         #opróżnij ten folder -> usuń wcześniejsze zdjęcia
-        for f in glob.glob("photos/*.jpg", recursive=False):
+        for f in glob.glob("photos/*.png", recursive=False):
             os.system(f"del \"{f}\"")
 
         bot.execute_script("to_share()")
         height = bot.execute_script("return document.body.scrollHeight")
         move_by = self.size-50
-        os.system('pause')
 
         for a in range(math.ceil(height / move_by)):
-            bot.save_screenshot(f"photos/photo {a}.jpg")
+            bot.save_screenshot(f"photos/photo {a}.png")
             time.sleep(0.7)
             bot.execute_script(f"window.scrollBy(0,{move_by})")
         time.sleep(3)
@@ -77,7 +76,6 @@ class insta_bot():
         import autoit as ai
         print("Uploading by autoit")
         #print(path)
-        self.bot.find_element_by_xpath('//*[@id="body-main"]/div[2]/div[4]/form/div/div[3]/div[1]/div[3]/div[3]/div[2]/a[2]').click()
         time.sleep(3)
         while True:
             try:
@@ -89,6 +87,7 @@ class insta_bot():
                 break
             except:
                 print("By AutoIt: Nie wiem co się stało")
+                os.system('Pause')
                 break
 
     def upload_photos_by_input(self, files: list):
@@ -116,9 +115,9 @@ class insta_bot():
             
             while not bot.execute_script("return getComputedStyle(document.getElementById('loading-overplay')).display") == 'none':
                 time.sleep(3)
-
-    def publish_post(self, username, password):
-        '''Publishing photos with caption'''
+    
+    def publish_post_by_latelysocial(self, username, password):
+        '''Publishing photos by latelysocial.com'''
         bot = self.bot
         #login to site latelysocial
         bot.get('https://latelysocial.com/auth/login')
@@ -184,9 +183,57 @@ class insta_bot():
         os.system('pause')
         return
 
-        #close prompts
-        bot.find_element_by_xpath('//a[text()="x"]').click()
-    
+    def publish_post_by_instagram(self, login, passwd):
+        '''Publishing photos with caption over instagram.com'''
+        bot = self.bot
+        
+        #Login to instagram
+        bot.get("https://instagram.com/")
+        bot.find_element_by_xpath('//button[text()="Akceptuję wszystko"]').click()
+        time.sleep(1)
+        try:
+            bot.find_element_by_xpath('//button[text()="Zaloguj się"]').click()
+        except:
+            pass
+        def complete_it():
+            global username, password
+            try:
+                username = bot.find_element_by_name('username')
+                password = bot.find_element_by_name('password')
+            except:
+                complete_it()
+        complete_it()
+        username.clear()
+        password.clear()
+        username.send_keys(login)
+        password.send_keys(passwd+'\n')
+
+        time.sleep(3)
+        bot.find_element_by_xpath('//*[text()="Nie teraz"]').click()
+        try:
+            time.sleep(3)
+            bot.find_element_by_xpath('//*[text()="Anuluj"]').click()
+        except:
+            pass
+
+        #Post photos
+
+        time.sleep(2)
+        
+        bot.find_element_by_xpath('//*[@data-testid="new-post-button"]').click()
+        self.upload_photo_by_autoit(os.path.join(os.path.dirname(__file__), 'photos', 'photo 0.png'))
+        time.sleep(4)
+        bot.find_element_by_xpath('//*[text()="Dalej"]').click()
+        time.sleep(3)
+        
+        describe = bot.find_element_by_xpath('//textarea[@placeholder="Dodaj opis..."]')
+
+        with open("opis.txt", "r", encoding='utf-8') as f:
+            describe.send_keys(f.read())
+            f.close()
+        bot.find_element_by_xpath('//button[text()="Udostępnij"]').click()
+
+
     def create_caption(self):
         '''Tworzenie opisu'''
         print('Tworzenie opisu')
@@ -211,17 +258,16 @@ class insta_bot():
         time.sleep(2)
         bot.find_element_by_xpath('//*[@id="show_del"]/button[1]').click()
 
-path = os.path.join('photos', 'photo 0.jpg')
 
 bot = insta_bot(input("Podaj link do wpisu: "))
-'''bot.check_posts()
+bot.check_posts()
 sub.run('pause', shell=True)
 bot.create_caption()
 
 bot.make_shot()
-'''
-bot.publish_post('tester_bot@int.pl', os.getenv('PASSWORD'))
-bot.clean_file_manager()
+
+bot.publish_post_by_instagram(os.getenv('LOGIN'), os.getenv('PASSWORD'))
+#bot.clean_file_manager()
 
 sub.run('pause', shell=True)
 
