@@ -103,7 +103,9 @@ def last_post():
     pieces = link.split('/')
     with open('static/head.html', 'r+', encoding='utf-8') as f:
         lines = f.readlines()
-        href = '/'+'/'.join(pieces[3:7])+'/'
+        stories_idx = pieces.index('stories') #check on which place is "stories" keyword.
+        href = '/'+'/'.join(pieces[stories_idx:stories_idx+4])+'/'
+        print(href)
         lines[17] = f'        <li><a href="{href}">Ostatnio udostępniony wpis</a></li>\n'
         f.seek(0)
         f.writelines(lines)
