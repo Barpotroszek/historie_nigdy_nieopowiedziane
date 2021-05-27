@@ -1,6 +1,4 @@
 import flask, os
-
-from flask.globals import request
 from write_json import templates
 from kill import kill_process
 
