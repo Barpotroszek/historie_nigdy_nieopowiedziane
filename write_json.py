@@ -209,23 +209,23 @@ class templates:
                 print("IDX none")
                 
                 titles = []
-                hrefs = []
+                links = []
 
-                #w razie gdyby się powtarzały dodaje im numerek, np '#2'
-                for a in posts:
-                    if a['category'] in self.dont_show:
+                for a in range(len(posts)):  
+                #numeruje linki i łączy je w tuple
+                    post = posts[a]
+                    if post['category'] in self.dont_show:
                         continue
-                    title = a['title']
-                    if title in titles:
+                    title = post['title']
+                
+                #w razie gdyby się powtarzały dodaje im numerek, np '#2'
+                    if title in titles: 
                         title += f' #{titles.count(title)+1}'
-                    hrefs.append(title)
+                    links.append((a, title))
                     titles.append(title)
-                print(hrefs)
+                print(links)
                 title = first_place
                 content = []
-                
-                #numeruje linki i łączy je w tuple
-                links = [(a,b) for a,b in enumerate(hrefs)] 
 
                 #tworzy linki segregując je od najstarszych do najnowszych 
                 content = self.give_links(links, True)
