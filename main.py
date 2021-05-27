@@ -1,4 +1,6 @@
 import flask, os
+
+from flask.globals import request
 from write_json import templates
 from kill import kill_process
 
@@ -93,6 +95,21 @@ def stories_json():
     global head
     file_string = html.give_dict()
     return flask.jsonify(file_string)
+
+@app.route('/published_post')
+def last_post():
+    global head
+    link = flask.globals.request.args.get('link')
+    pieces = link.split('/')
+    with open('static/head.html', 'r+', encoding='utf-8') as f:
+        lines = f.readlines()
+        href = '/'+'/'.join(pieces[3:7])+'/'
+        lines[17] = f'        <li><a href="{href}">Ostatnio udostępniony wpis</a></li>\n'
+        f.seek(0)
+        f.writelines(lines)
+        f.close()
+        head = ''.join(lines)
+    return "Coś mam"
 
 @app.route('/stories')
 @app.route('/stories/')
