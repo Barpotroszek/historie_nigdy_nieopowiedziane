@@ -11,6 +11,28 @@ class templates:
         self.categories.insert(len(self.categories)-1, ('updates', 'Aktualizacje'))
         self.dont_show = ['updates', 'non-censored', 'changes']
         self.translated = {a:b for a,b in self.categories} #lista słownkiów zrobionych z tupli
+        self.head = self.return_head()
+
+    def change_link(self, href):
+        '''Zmienia link do ostatnio udostępnionego postu'''
+        with open(file_json, 'r+', encoding='utf-8') as f:
+            data = json.loads(f.read())
+            data['published_post'] = href
+            f.seek(0)
+            f.truncate()
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    def return_head(self):
+        '''Zwraca menu'''
+        with open(file_json, 'r+', encoding='utf-8') as f:
+            data = json.loads(f.read())
+            href = data["published_post"]
+            f.close()
+
+        with open('static/head.html', encoding='utf-8') as f:
+            head = f.read()
+            f.close()
+        return head.replace('link', href)
 
     def need_censore(self, tekst):
         '''Zwraca True, jeśli znajdzie niewłaściwe słowa'''
