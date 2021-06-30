@@ -15,8 +15,7 @@ load_dotenv()
 os.chdir(os.path.dirname(__file__))
 
 class insta_bot():
-    def __init__(self, link):
-        self.link = link
+    def __init__(self):
         self.size = 800
         options = Options()
         mobile_emulation = {
@@ -26,12 +25,14 @@ class insta_bot():
         options.add_experimental_option("mobileEmulation", mobile_emulation)
         options.add_argument(f"--window-size={self.size}{self.size}")
         self.bot = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        self.bot.get('https://historie.nieopowiedziane.repl.co/stories/date/')
         self.variabeles_to_template = {}
 
 
-    def check_posts(self):
+    def check_posts(self, link):
         '''Open page you've given'''
         #self.bot.get(input('Podaj link do strony: '))
+        self.link = link
         self.bot.get(self.link)
         time.sleep(3)
         self.bot.execute_script('document.styleSheets[0].cssRules[23].style.removeProperty("padding")')
@@ -44,7 +45,9 @@ class insta_bot():
         self.variabeles_to_template['title'] = title
         self.variabeles_to_template['category'] = category
         self.variabeles_to_template['link'] = self.link
-        self.variabeles_to_template['tag_title'] = title.lower().replace(' ', '_')
+        title_cat = title.lower().split()
+        title_cat = [f'#{a}' for a in title_cat]
+        self.variabeles_to_template['tag_title']  = " ".join(title_cat)
         self.variabeles_to_template['lower_category'] = category.lower().replace(' ', '_')
 
         to_print = [f"{a} -> {b}" for a,b in self.variabeles_to_template.items()]
@@ -54,6 +57,7 @@ class insta_bot():
         '''Update "Ostatni udostępniony post" tab on main website'''
         link = 'http://historie.nieopowiedziane.repl.co/published_post?link='+self.link
         self.bot.get(link)
+        os.system('pause')
 
     def make_shot(self):
         '''Make screenshot of the page'''
