@@ -266,8 +266,8 @@ class insta_bot():
         bot.find_element_by_xpath('//*[@id="show_del"]/button[1]').click()
 
 
-bot = insta_bot(input("Podaj link do wpisu: "))
-bot.check_posts()
+bot = insta_bot()
+bot.check_posts(input("Podaj link do wpisu: "))
 sub.run('pause', shell=True)
 bot.create_caption()
 
