@@ -1,6 +1,6 @@
 import json, datetime
 
-file_json = 'templates/data.json'
+file_json = 'data.json'
 
 var = {}
 
