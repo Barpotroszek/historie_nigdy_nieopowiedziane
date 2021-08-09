@@ -110,4 +110,12 @@ def stories_date(show_by=None, first_place=None, idx=None):
 def welcome():
     return flask.render_template("welcome_post.html", head = html.return_head())
 
+
+@app.route('/data')
+def data():
+  with open('data.json', 'r', encoding='utf-8') as f:
+    data = f.read()
+    f.close()
+  return data
+  
 app.run(host='0.0.0.0', debug=True, port=5000)
