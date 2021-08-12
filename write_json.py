@@ -13,8 +13,20 @@ class templates:
         self.translated = {a:b for a,b in self.categories} #lista słownkiów zrobionych z tupli
         self.head = self.return_head()
 
+    def __update__(self):
+        '''Zmienia datę ostatniej aktualizacji danych na dzisiejszą'''
+        now = datetime.datetime.now().strftime('%d.%m.%Y %H:%M')
+        with open(file_json, 'r+', encoding='utf-8') as f:
+            data = json.loads(f.read())
+            data['last_update'] = now
+            f.seek(0)
+            f.truncate()
+            json.dump(data, f, ensure_ascii=False, indent=4)
+            f.truncate()
+
     def change_link(self, href):
         '''Zmienia link do ostatnio udostępnionego postu'''
+        self.__update__()
         with open(file_json, 'r+', encoding='utf-8') as f:
             data = json.loads(f.read())
             data['published_post'] = href
@@ -50,6 +62,7 @@ class templates:
 
     def add_post(self, title, category, content):
         '''Dodaje post do pliku json i zwraca w tupli link z tytułem wpisu'''
+        self.__update__()
         with open(file_json, 'r+', encoding='utf-8') as f:
             data = json.loads(f.read())
             posts = data['posts']
