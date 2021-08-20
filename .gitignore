@@ -4,3 +4,4 @@ templates/change_all.py
 *.txt
 bot_publisher/photos/*
 .env
+*.sh
