@@ -1,4 +1,5 @@
 import flask, os
+os.environ['TZ'] = 'Europe/Warsaw'
 from write_json import templates
 from kill import kill_process
 
