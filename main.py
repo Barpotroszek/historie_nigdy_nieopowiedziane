@@ -16,9 +16,9 @@ except:
 
 categories = [
     ("swiadectwo", "Świadectwo"),
-    ("modlitwa", "Modlitwa"),
     ("historia", "Historia"),
     ("cytat", "Cytat"),
+    ("modlitwa", "Modlitwa"),
     ('changes', 'Możliwe poprawki'),
     ("inne", "Inne")
 ]
