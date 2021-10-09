@@ -48,7 +48,7 @@ def favicon():
 @app.route('/', methods=['GET'])
 def index():   
     global categories
-    return flask.render_template('index.html', head=html.return_head(), categories = categories)
+    return flask.render_template('index.html', head=html.return_link(), categories = categories)
 
 @app.route('/', methods=['POST'])
 def index_post():
@@ -64,25 +64,19 @@ def index_post():
         return flask.redirect(flask.url_for('post_wordpress', amount=amount))
     
     html.post_template(title, category, content)       
-    return flask.redirect(flask.url_for('post_normal'))
+    return flask.redirect(flask.url_for('post_normal'), head=html.return_link())
     
 @app.route('/thanks/<amount>')
 def post_wordpress(amount):
-    return flask.render_template('output_index.html', dane=amount, head=html.return_head())
+    return flask.render_template('output_index.html', dane=amount, head=html.return_link())
 
 @app.route('/thanks')
 def post_normal():
-    return flask.render_template('output_index.html', head=html.return_head())
+    return flask.render_template('output_index.html', head=html.return_link())
 
 @app.route('/about')
 def about():
-    return flask.render_template("about.html", head=html.return_head())
-
-
-@app.route('/stories/json')
-def stories_json():
-    file_string = html.give_dict()
-    return flask.jsonify(file_string)
+    return flask.render_template("about.html", head=html.return_link())
 
 @app.route('/published_post')
 def last_post():
@@ -98,18 +92,18 @@ def last_post():
 @app.route('/stories/')
 def choose_sorting():
     html.create_template(sorting_style = True)
-    return flask.render_template('output_index.html', head=html.return_head())
+    return flask.render_template('output_index.html', head=html.return_link())
 
 @app.route('/stories/<show_by>/')
 @app.route('/stories/<show_by>/<first_place>/')
 @app.route('/stories/<show_by>/<first_place>/<int:idx>/')
 def stories_date(show_by=None, first_place=None, idx=None):
     html.create_template(show_by=show_by, first_place=first_place, idx=idx)
-    return flask.render_template('output_index.html', head=html.return_head())
+    return flask.render_template('output_index.html', head=html.return_link())
 
 @app.route('/welcome')
 def welcome():
-    return flask.render_template("welcome_post.html", head = html.return_head())
+    return flask.render_template("welcome_post.html", head = html.return_link())
 
 
 @app.route('/data')

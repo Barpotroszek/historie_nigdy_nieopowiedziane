@@ -1,38 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% extends "head.html" %}
+        {% block title %}Strona główna{% endblock %}
+        {% block head %}
+        {{ super () }}
+        {% endblock %}
+        
+{% block content %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='flavicon.ico') }}">
-    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
-    <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
-	<title>^title^ | Historie nigdy nieopowiedziane</title>
-    {{ head | safe }}
-</head>
-
-<body>
-    <dl class='data-out'>
-        <dt id="story-title">&nbsp; ^title^</dt>
-        <dd id='story-category' hidden>^category^</dd>
-        <dd id='story-tags' hidden>^tags^</dd>
-        <dd id='story-date' hidden>^date^</dd>
-        <dd id="story-content"> ^content^ </dd>
-    </dl>
-    <a onclick="window.history.go(-1)">
-        <button id='submit' class="data-in buttons">Powrót</button>
-    </a>
-    <script>
-        function change_padding() {
-            document.getElementById('lista').style.marginLeft = "15px";
-            elements = document.getElementsByClassName('el')
-            for (var a = 0; a < elements.length; a++) {
-                elements[a].style.marginLeft = "20px"
-            }
-            console.log("Done it!");
+<dl class='data-out'>
+    <dt id="story-title">&nbsp; ^title^</dt>
+    <dd id='story-category' hidden>^category^</dd>
+    <dd id='story-tags' hidden>^tags^</dd>
+    <dd id='story-date' hidden>^date^</dd>
+    <dd id="story-content"> ^content^ </dd>
+</dl>
+<a onclick="window.history.go(-1)">
+    <button id='submit' class="data-in buttons">Powrót</button>
+</a>
+<script>
+    function change_padding() {
+        document.getElementById('lista').style.marginLeft = "15px";
+        elements = document.getElementsByClassName('el')
+        for (var a = 0; a < elements.length; a++) {
+            elements[a].style.marginLeft = "20px"
         }
-        window.onload = change_padding()
-    </script>
-</body>
-
-</html>
+        console.log("Done it!");
+    }
+    window.onload = change_padding()
+</script>
+{% endblock %}

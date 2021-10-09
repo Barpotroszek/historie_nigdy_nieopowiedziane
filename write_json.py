@@ -11,7 +11,6 @@ class templates:
         self.categories.insert(len(self.categories)-1, ('updates', 'Aktualizacje'))
         self.dont_show = ['updates', 'non-censored', 'changes']
         self.translated = {a:b for a,b in self.categories} #lista słownkiów zrobionych z tupli
-        self.head = self.return_head()
 
     def __update__(self):
         '''Zmienia datę ostatniej aktualizacji danych na dzisiejszą'''
@@ -34,17 +33,14 @@ class templates:
             f.truncate()
             json.dump(data, f, ensure_ascii=False, indent=4)
 
-    def return_head(self):
+    def return_link(self):
         '''Zwraca menu'''
         with open(file_json, 'r+', encoding='utf-8') as f:
             data = json.loads(f.read())
             href = data["published_post"]
             f.close()
 
-        with open('static/head.html', encoding='utf-8') as f:
-            head = f.read()
-            f.close()
-        return head.replace('link', href)
+        return href
 
     def need_censore(self, tekst):
         '''Zwraca True, jeśli znajdzie niewłaściwe słowa'''
@@ -135,10 +131,6 @@ class templates:
             amount = len(today_posts)
             path = "{}/{}".format(today, amount-1)
             return path
-
-    def give_dict(self):
-        with open(file_json, 'r', encoding='utf-8') as f:
-            return json.loads(f.read())
 
     def give_links(self, tuple_list, reverse: bool):
         output = []

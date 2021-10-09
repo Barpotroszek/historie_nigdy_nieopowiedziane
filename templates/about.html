@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends "head.html" %}
+{% block title %}Strona główna{% endblock %}
+{% block head %}
+{{ super () }}
+{% endblock %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='flavicon.ico') }}">
-    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
-    <script type=text/javascript src="{{url_for('static', filename='main.js') }}"></script>
-    <title>O stronie | Historie nigdy nieopowiedziane</title>
-    {{ head | safe }}
-</head>
-
-
+{% block content %}
 
 <body>
     <dl class='data-out'>
@@ -23,7 +16,8 @@
                 anonimowo zamieścić swoją historię, świadectwo, modlitwę, cytat podnoszący na duchu, bądź coś innego.
                 Wszystko, co pojawi się na tej stronie, zależy tak na prawdę od Ciebie, użytkownika. Posty będą
                 udostępniane automatycznie na profilu instagramowym za pomocą programu(prace nad nim jeszcze trwają),
-                który będzie uruchamiany co jakiś czas. Niestety jednak posty, które zawierają niecenzurlane słowa mogą nie być udostępnione na tym profilu. Pamiętaj, wszystko w granicach rozsądku</p>
+                który będzie uruchamiany co jakiś czas. Niestety jednak posty, które zawierają niecenzurlane słowa mogą
+                nie być udostępnione na tym profilu. Pamiętaj, wszystko w granicach rozsądku</p>
 
             <ul id="lista" style="list-style:decimal;">Wysłanie takiego wpisu to nic ciężkiego:
                 <li class="el">Wejdź na stronę podaną w biogramie,</li>
@@ -31,10 +25,13 @@
                 <li class="el">Wybierz odpowiednią kategorię,</li>
                 <li class="el">Wpisz treść swojej historii,</li>
                 <li class="el">Naciśnij przycisk <i>"Wyślij"</i>,</li>
-                <p style="margin-top: 4px;">i gotowe. Od tej chwili możesz znaleźć swój wpis w zakładce <i>"Przysłane historie"</i>.</p>
+                <p style="margin-top: 4px;">i gotowe. Od tej chwili możesz znaleźć swój wpis w zakładce <i>"Przysłane
+                        historie"</i>.</p>
             </ul>
 
-            <p>&nbsp;Twoje dane nie są w żaden sposób przechowywane, zbierane, czy jakkolwiek sprawdzane. Nikt nie dowie się kto wysłał dany wpis, nawet administratorzy tej strony. Możesz sprawdzić kod źródłowy, nie ma tu żadnych tajemnic.</p>
+            <p>&nbsp;Twoje dane nie są w żaden sposób przechowywane, zbierane, czy jakkolwiek sprawdzane. Nikt nie dowie
+                się kto wysłał dany wpis, nawet administratorzy tej strony. Możesz sprawdzić kod źródłowy, nie ma tu
+                żadnych tajemnic.</p>
             <p>Masz jakiś pomysł na ulepszenie tej strony? Pisz śmiało! Zobaczymy co da się zrobić😉.</p>
             <p>Proszę o udostępnianie. Dajmy rozgłos tej stronce!</p>
             <p style="text-align:right">Dziękuję, za zaangażowanie,<br><i>Bartek, administrator</i>
@@ -55,6 +52,4 @@
         }
         window.onload = change_padding()
     </script>
-</body>
-
-</html>
+    {% endblock %}
