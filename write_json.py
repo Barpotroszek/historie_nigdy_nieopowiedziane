@@ -1,4 +1,5 @@
 import json, datetime
+from requests import post as r_post
 
 file_json = 'data.json'
 
@@ -38,6 +39,7 @@ class templates:
         with open(file_json, 'r+', encoding='utf-8') as f:
             data = json.loads(f.read())
             href = data["published_post"]
+            print(href, type(href))
             f.close()
 
         return href
@@ -71,7 +73,7 @@ class templates:
 
             if self.need_censore(content):
                 category = "non-censored"
-            #przypisz liste dzisiejszych postów tej zmiennej
+            #przypisz liste postów z obecnego miesiąca tej zmiennej
             today_posts = posts[today]  
             #stwórz nowy słownik z tymi danymi
             if title.lower() in  ['aktualizacja', 'update'] :
@@ -93,7 +95,7 @@ class templates:
             json.dump(data, f, ensure_ascii=False, indent=4)
             f.close()   
             
-            
+            r_post('https://maker.ifttt.com/trigger/NewPost/json/with/key/NMkX_ze2I-AiiZN70HNb', data=var)
             amount = len(today_posts)
             link = "date/{}/{}".format(today, amount-1)
             return link

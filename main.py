@@ -70,7 +70,7 @@ def index_post():
         return flask.redirect(flask.url_for('post_wordpress', amount=amount))
 
     html.post_template(title, category, content)
-    return flask.redirect(flask.url_for('post_normal'), link=html.return_link())
+    return flask.redirect(flask.url_for('post_normal'))
 
 
 @app.route('/thanks/<amount>')
@@ -134,5 +134,8 @@ def update():
     system('~/historie/update.sh')
     return "<h1>OK</h1>"
 
+#@app.errorhandler(TypeError)
+#def gotTypeError():
+#    return ""
 
 app.run(host='0.0.0.0', debug=True, port=5000)
